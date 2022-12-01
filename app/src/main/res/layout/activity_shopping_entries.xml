@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".ShoppingEntriesActivity">
+
+    <EditText
+            android:id="@+id/newProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="product name"
+            />
+    <EditText
+            android:id="@+id/newPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="price"
+            android:inputType="numberDecimal"
+            />
+    <EditText
+            android:id="@+id/newQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="quantity"
+            android:inputType="number"
+            />
+
+    <Button
+            android:id="@+id/addProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            />
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv1"
+            android:layout_width="409dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="7dp"
+            tools:ignore="MissingConstraints" />
+</LinearLayout>

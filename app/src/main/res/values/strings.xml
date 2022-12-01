@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MiniProject1</string>
+    <string name="see_lists">Go to lists</string>
+    <string name="options">Go to options</string>
+    <string name="see_list">Go to list</string>
+    <string name="edit_list">Edit list</string>
+    <string name="change_size">Change size</string>
+    <string name="change_color">Change color</string>
+    <string name="change_text_color">change text size</string>
+</resources>
