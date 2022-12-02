@@ -8,13 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import pjatk.smb.databinding.ActivityShoppingListsBinding
 import pjatk.smb.db.ShoppingList
+import java.util.UUID
 
 class ShoppingListsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShoppingListsBinding
     private lateinit var sp: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +30,9 @@ class ShoppingListsActivity : AppCompatActivity() {
         val listsModel = ShoppingListViewModel(application)
         val adapter = ShoppingListAdapter(listsModel, this)
 
+        auth = FirebaseAuth.getInstance()
         binding.addList.setOnClickListener {
-           val list = ShoppingList(name = binding.newList.text.toString())
+           val list = ShoppingList(id = "new",name = binding.newList.text.toString(),if(!binding.isShared.isChecked) auth.currentUser?.uid else null)
             adapter.add(list)
         }
         binding.rv1.layoutManager = LinearLayoutManager(this)
@@ -36,7 +40,7 @@ class ShoppingListsActivity : AppCompatActivity() {
         binding.rv1.adapter = adapter
         listsModel.lists.observe(this, Observer {
             it.let {
-                adapter.setLists(it)
+                adapter.setLists(it.values.toList())
             }
         })
     }

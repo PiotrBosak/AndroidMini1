@@ -3,6 +3,8 @@ package pjatk.smb
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.FirebaseDatabase
 import pjatk.smb.db.ShoppingList
 import pjatk.smb.db.ShoppingListDB
 import pjatk.smb.db.ShoppingListRepo
@@ -10,12 +12,12 @@ import pjatk.smb.db.ShoppingListRepo
 class ShoppingListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repo: ShoppingListRepo
-    val lists: LiveData<List<ShoppingList>>
+    val lists: MutableLiveData<HashMap<String, ShoppingList>>
+    var firebaseDatabase: FirebaseDatabase
 
     init {
-        repo = ShoppingListRepo(
-            ShoppingListDB.getDatabase(application.applicationContext).shoppingListDao()
-        )
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        repo = ShoppingListRepo(firebaseDatabase)
         lists = repo.lists
     }
 

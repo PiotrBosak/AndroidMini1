@@ -18,7 +18,7 @@ import pjatk.smb.db.ShoppingItemEntry
 class ShoppingEntryAdapter(
     private val entryViewModel: ShoppingItemEntryViewModel,
     private val activity: AppCompatActivity,
-    val listId: Long
+    val listId: String
 ) : RecyclerView.Adapter<ShoppingEntryAdapter.ViewHolder>() {
 
     private var entries = emptyList<ShoppingItemEntry>()
@@ -60,7 +60,7 @@ class ShoppingEntryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entry = entries[position]
-        holder.binding.isCompleteCheckbox.isChecked = entry.isComplete
+        holder.binding.isCompleteCheckbox.isChecked = entry.completed != 0L
         holder.binding.isCompleteCheckbox.isEnabled = false
         holder.binding.entryName.text = entry.productName
         holder.binding.entryQuantity.text = entry.quantity.toString()

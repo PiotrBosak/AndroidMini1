@@ -9,6 +9,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import pjatk.smb.databinding.ActivityEditListBinding
 import pjatk.smb.db.ShoppingList
+import java.util.UUID
 
 const val EDIT_LIST = "pjatk.smb.edit_list"
 const val EDIT_LIST_RESULT = "pjatk.smb.edit_list_result"
@@ -29,7 +30,7 @@ class EditShoppingListActivity : AppCompatActivity() {
         val list = intent.getSerializableExtra(EDIT_LIST) as ShoppingList
         binding.editListName.text = list.name
         binding.modifyProduct.setOnClickListener {
-            val newList = ShoppingList(name = binding.editListNewName.text.toString())
+            val newList = ShoppingList(id = "new", name = binding.editListNewName.text.toString(), userId = null)
             binding.editListName.text = newList.name
             if (!isDeleted) {
                 val data = Intent().apply {

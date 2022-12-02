@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import pjatk.smb.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     private val launcher: ActivityResultLauncher<Intent> =
         registerForActivityResult(
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
         binding.seeLists.setOnClickListener {
             val intent = Intent(this, ShoppingListsActivity::class.java).apply {  }
             launcher.launch(intent)
@@ -30,4 +34,10 @@ class MainActivity : AppCompatActivity() {
             launcher.launch(intent)
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        auth.signOut()
+    }
+
 }

@@ -10,7 +10,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import pjatk.smb.databinding.ActivityShoppingEntriesBinding
 import pjatk.smb.db.ShoppingItemEntry
-import java.util.UUID
 
 const val LIST_ID = "pjatk.smb.list_id"
 
@@ -29,20 +28,18 @@ class ShoppingEntriesActivity : AppCompatActivity() {
         sp = getPreferences(Context.MODE_PRIVATE)
         editor = sp.edit()
 
-        val listId: Long = intent.getLongExtra(LIST_ID, -1)
+        val listId: String = intent.getStringExtra(LIST_ID) ?: ""
         val entriesModel = ShoppingItemEntryViewModel(application, listId)
         val entriesAdapter = ShoppingEntryAdapter(entriesModel, this, listId)
 
         binding.addProduct.setOnClickListener {
             val entry = ShoppingItemEntry(
-                id = UUID.randomUUID(),
+                id = "new",
                 productName = binding.newProductName.text.toString(),
-                quantity = Integer.parseInt(
-                    binding.newQuantity.text.toString()
-                ),
-                pricePerItem = binding.newPrice.text.toString().toDouble(),
-                shoppingListId = listId.toInt(),
-                isComplete = false
+                quantity = binding.newQuantity.text.toString().toLong(),
+                pricePerItem = binding.newPrice.text.toString().toLong(),
+                shoppingListId = listId,
+                completed = 0
             )
             entriesAdapter.add(entry)
             val intent1 = Intent().apply {
@@ -62,14 +59,14 @@ class ShoppingEntriesActivity : AppCompatActivity() {
 
         entriesModel.entries.observe(this, Observer {
             it.let {
-                entriesAdapter.setEntries(it)
+                entriesAdapter.setEntries(it.values.toList())
             }
         })
 
     }
 
     companion object {
-        fun newIntent(packageContext: Context, listId: Long): Intent {
+        fun newIntent(packageContext: Context, listId: String): Intent {
             return Intent(packageContext, ShoppingEntriesActivity::class.java).apply {
                 putExtra(LIST_ID, listId)
             }

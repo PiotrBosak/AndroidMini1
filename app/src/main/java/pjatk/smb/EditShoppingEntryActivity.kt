@@ -28,22 +28,20 @@ class EditShoppingEntryActivity : AppCompatActivity() {
         setProductInfo(entry)
         binding.modifyProduct.setOnClickListener {
             val quantity = if (binding.editEntryNewQuantity.text.toString() != "")
-                Integer.parseInt(
-                    binding.editEntryNewQuantity.text.toString()
-                )
+                    binding.editEntryNewQuantity.text.toString().toLong()
             else entry.quantity
             val name = if (binding.editEntryNewProductName.text.toString() != "")
                 binding.editEntryNewProductName.text.toString()
             else entry.productName
             val price =
                 if (binding.editEntryNewPrice.text.toString() != "")
-                    binding.editEntryNewPrice.text.toString().toDouble()
+                    binding.editEntryNewPrice.text.toString().toLong()
                 else entry.pricePerItem
             val newEntry = entry.copy(
                 productName = name,
                 quantity = quantity,
                 pricePerItem = price,
-                isComplete = binding.editIsCompleted.isChecked
+                completed = if(binding.editIsCompleted.isChecked) 1 else 0
             )
             setProductInfo(newEntry)
             if (!isDeleted) {
@@ -79,7 +77,7 @@ class EditShoppingEntryActivity : AppCompatActivity() {
         data class Modified(val entry: ShoppingItemEntry) : EditEntryResult
         data class Deleted(val entry: ShoppingItemEntry) : EditEntryResult
 
-        fun newIntent(packageContext: Context, entry: ShoppingItemEntry, listId: Long): Intent {
+        fun newIntent(packageContext: Context, entry: ShoppingItemEntry, listId: String): Intent {
             return Intent(packageContext, EditShoppingEntryActivity::class.java).apply {
                 putExtra(EDIT_ENTRY, entry)
                 putExtra(LIST_ID, listId)
