@@ -70,7 +70,6 @@ class SigninSignupActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java).apply { }
                     launcher.launch(intent)
                 } else {
-                    println(task.exception)
                     Toast.makeText(
                         this, "Error",
                         Toast.LENGTH_SHORT

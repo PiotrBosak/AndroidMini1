@@ -15,16 +15,9 @@ class ShoppingItemEntryRepo(private val firebaseDatabase: FirebaseDatabase,priva
         }
 
     init {
-        firebaseDatabase.getReference("entries/${listId.replace("-","")}")
+        firebaseDatabase.getReference("entries/${listId}")
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    println("XXXXXXXXXXXXXXXXXXXXX")
-                    println("entries/${listId.replace("-","")}")
-                    println( snapshot.child("productName").value as String)
-                    println( snapshot.child("quantity").value as Long)
-                    println( snapshot.child("pricePerItem").value as Long)
-                    println( snapshot.child("completed").value)
-                    println( snapshot.child("shoppingListId").value)
                     val entry = ShoppingItemEntry(
                         id = snapshot.ref.key as String,
                         productName = snapshot.child("productName").value as String,
@@ -76,16 +69,14 @@ class ShoppingItemEntryRepo(private val firebaseDatabase: FirebaseDatabase,priva
     }
 
     suspend fun insert(entry: ShoppingItemEntry) {
-        firebaseDatabase.getReference("entries/${listId.replace("-","")}").push().also {
-            entry.id = it.ref.key!!.replace("-","")
-            println("YYYYYYYYYYYYYYYYYYYYY")
-            println(entry)
+        firebaseDatabase.getReference("entries/${listId}").push().also {
+            entry.id = it.ref.key!!
             it.setValue(entry)
         }
     }
 
     suspend fun update(entry: ShoppingItemEntry) {
-        var ref = firebaseDatabase.getReference("entries/${listId.replace("-","")}/${entry.id.replace("-","")}")
+        var ref = firebaseDatabase.getReference("entries/${listId}/${entry.id}")
         ref.child("productName").setValue(entry.productName)
         ref.child("quantity").setValue(entry.quantity)
         ref.child("pricePerItem").setValue(entry.pricePerItem)
@@ -94,7 +85,7 @@ class ShoppingItemEntryRepo(private val firebaseDatabase: FirebaseDatabase,priva
     }
 
     suspend fun delete(entry: ShoppingItemEntry) =
-        firebaseDatabase.getReference("entries/${listId.replace("-","")}/${entry.id.replace("-","")}").removeValue()
+        firebaseDatabase.getReference("entries/${listId}/${entry.id}").removeValue()
 
-    suspend fun deleteAll() = firebaseDatabase.getReference("entries/${listId.replace("-","")}").removeValue()
+    suspend fun deleteAll() = firebaseDatabase.getReference("entries/${listId}").removeValue()
 }

@@ -73,7 +73,7 @@ class ShoppingListRepo(private val firebaseDatabase: FirebaseDatabase) {
         return if(isShared)
             "lists"
         else
-            "lists/${auth.currentUser?.uid?.replace("-","")}"
+            "lists/${auth.currentUser?.uid}"
     }
 
     suspend fun insert(list: ShoppingList) {
