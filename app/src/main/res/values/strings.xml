@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">MiniProject1</string>
     <string name="see_lists">Go to lists</string>
+    <string name="add_stores">Add stores</string>
+    <string name="see_stores">Go to stores</string>
     <string name="options">Go to options</string>
     <string name="see_list">Go to list</string>
     <string name="edit_list">Edit list</string>
     <string name="change_size">Change size</string>
     <string name="change_color">Change color</string>
     <string name="change_text_color">change text size</string>
+    <string name="mapbox_access_token">"pk.eyJ1IjoicGlvdHJib3NhayIsImEiOiJjbGJxanVnYncwa3l2M3FrZWN0eGFmZGNhIn0.RyQ7V6D2ILxU8mh1Gfjm7g"</string>
 </resources>

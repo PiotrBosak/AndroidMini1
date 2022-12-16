@@ -25,6 +25,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ShoppingListsActivity::class.java).apply {  }
             launcher.launch(intent)
         }
+        binding.addStores.setOnClickListener {
+            val intent = Intent(this, StoreAddActivity::class.java).apply {  }
+            launcher.launch(intent)
+        }
+        binding.seeStores.setOnClickListener {
+            val intent = Intent(this, StoreMapActivity::class.java).apply {  }
+            launcher.launch(intent)
+        }
         binding.options.setOnClickListener {
             val intent = Intent(this, OptionsActivity::class.java).apply {  }
             launcher.launch(intent)

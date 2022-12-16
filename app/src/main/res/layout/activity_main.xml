@@ -33,4 +33,20 @@
                 android:text="@string/options" />
     </LinearLayout>
 
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_stores"
+            android:text="@string/add_stores" />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/see_stores"
+            android:text="@string/see_stores" />
+    </LinearLayout>
+
 </LinearLayout>
